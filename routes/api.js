@@ -1720,6 +1720,35 @@ res.json(loghandler.invalidKey)
 }
 })
 
+router.get('/random/quotesali', async (req, res, next) => {
+        var Apikey = req.query.apikey
+            
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+
+       fetch(encodeURI(`https://raw.githubusercontent.com/mrhalu/api-data/main/quotes/ali.json`))
+        .then(response => response.json())
+        .then(hasil => {
+        var result = hasil.result;
+             res.json({
+                 creator : `${creator}`,
+                 result
+             })
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
+
+
+
+
+
+
+
 
 router.get('/jadwal-bioskop', async(req, res, next) => {
 var Apikey = req.query.apikey
