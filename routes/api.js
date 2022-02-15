@@ -1736,7 +1736,7 @@ router.get('/random/quotesali', async (req, res, next) => {
           .json({
               code: 200,
               success: true,
-              ...quotes[~~(Math.random() * quotes.length)]
+              quotes[Math.floor(Math.random() * quotes.length)]
           })
     } else {
         res.json(loghandler.invalidKey)
