@@ -1728,15 +1728,16 @@ router.get('/random/quotesali', async (req, res, next) => {
 
     if(!Apikey) return res.json(loghandler.notparam)
     if(listkey.includes(Apikey)){
-        var quotes = JSON.parse(
+        var  al = JSON.parse(
             fs.readFileSync(__path + '/data/ali.json')
         )
+       var hasil = al[Math.floor(Math.random() * al.length)]
         res
           .status(200)
           .json({
               code: 200,
               success: true,
-              quotes[Math.floor(Math.random() * quotes.length)]
+              Quotes: hasil
           })
     } else {
         res.json(loghandler.invalidKey)
