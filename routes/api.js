@@ -1724,30 +1724,23 @@ res.json(loghandler.invalidKey)
 
 
 router.get('/random/quotesali', async (req, res, next) => {
-        var Apikey = req.query.apikey
-            
-	if(!Apikey) return res.json(loghandler.notparam)
-	if(listkey.includes(Apikey)){
+    var Apikey = req.query.apikey
 
-       fetch(encodeURI(`https://raw.githubusercontent.com/mrhalu/api-data/main/quotes/ali.json`))
-       
-        .then(response => response.json())
-        .then(hasil => {
-        var result = hasil.result;
-        var hasil = result[Math.floor(Math.random() * result.length)]
-        res.json({
-              status: true,
+    if(!Apikey) return res.json(loghandler.notparam)
+    if(listkey.includes(Apikey)){
+        var quotes = JSON.parse(
+            fs.readFileSync(__path + '/data/ali.json')
+        )
+        res
+          .status(200)
+          .json({
               code: 200,
-              creator: `${creator}`,
-              result: hasil
-            })
-         })
-         .catch(e => {
-         	res.json(loghandler.error)
-})
-} else {
-res.json(loghandler.invalidKey)
-}
+              success: true,
+              ...quotes[~~(Math.random() * quotes.length)]
+          })
+    } else {
+        res.json(loghandler.invalidKey)
+    }
 })
 
 
